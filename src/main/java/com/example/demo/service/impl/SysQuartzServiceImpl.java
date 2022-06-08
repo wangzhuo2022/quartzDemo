@@ -2,6 +2,7 @@ package com.example.demo.service.impl;
 
 
 import com.example.demo.dao.model.SysQuartz;
+import com.example.demo.service.SysQuartzService;
 import com.oracle.deploy.update.UpdateCheck;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
@@ -20,15 +21,20 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class SysQuartzServiceImpl {
+public class SysQuartzServiceImpl implements SysQuartzService {
 
     @Autowired
     private Scheduler scheduler;
 
+    @Autowired
+    private SysQuartz sysQuartz;
+
+
     /**
      * 添加定时任务
      */
-    public boolean add(SysQuartz sysQuartz) {
+    @Override
+    public boolean add() {
 
         // 启动
         if (0 == sysQuartz.getQuartzStatus()) {
@@ -44,6 +50,7 @@ public class SysQuartzServiceImpl {
      * @param cronExpression
      * @param param
      */
+    @Override
     public void schedulerAdd(String className, String cronExpression, String param) {
         try {
             // 启动调度器
@@ -69,6 +76,7 @@ public class SysQuartzServiceImpl {
      *
      * @param className
      */
+    @Override
     public void schedulerDelete(String className) {
         try {
             scheduler.pauseTrigger(TriggerKey.triggerKey(className));

@@ -2,6 +2,8 @@ package com.example.demo.dao.model;
 
 import lombok.Data;
 
+import java.util.UUID;
+
 /**
  * <p>
  * 定时任务信息表
@@ -14,7 +16,7 @@ import lombok.Data;
 public class SysQuartz {
 
 
-    private Long id;
+    private UUID id;
 
 
     private String className;
